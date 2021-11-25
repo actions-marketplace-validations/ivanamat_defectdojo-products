@@ -1,0 +1,133 @@
+name: 'DefectDojo products'
+description: >
+    Manage Defectdojo products ( Create only )
+tags: >
+    description: > 
+        (string) Product tags
+inputs:
+  token:
+    description: > 
+        (string($date)) The personal access token used to access the API.
+    required: true
+  defectdojo_url:
+    description: > 
+        (string) The Defectdojo base url. Example: https://defectdojo.domain.com
+    required: true
+  defectdojo_endpoint:
+    description: > 
+        (integer) The Defectdojo product endpoint. Default: /api/v2/products/
+    default: '/api/v2/products/'
+  tags:
+    description: >
+        (string) Tags
+    default: ''
+  name:
+    description: > 
+        (string) Name
+    required: true
+  description:
+    description: > 
+        (string) Name
+    required: true
+  prod_numeric_grade:
+    description: > 
+        (integer) Product numeric grade. Maximum: 2147483647 Minimum: -2147483648.
+    default: ''
+  business_criticality:
+    description: > 
+        (string) Business criticality.
+    default: ''
+  platform:
+    description: > 
+        (string) Platform.
+    required: ''
+  lifecycle:
+    description: > 
+        (string) Lifecycle.
+    default: ''
+  origin:
+    description: > 
+        (string) Origin.
+    default: ''
+  user_records:
+    description: > 
+        (integer) User records.
+    default: ''
+  revenue:
+    description: > 
+        (string($decimal)) Revenue.
+    default: ''
+  external_audience:
+    description: > 
+        (boolean) External audience. Default value: false.
+    default: false
+  internet_accessible:
+    description: > 
+        (boolean) Internet accessible. Default value: false.
+    default: false
+  enable_simple_risk_acceptance:
+    description: > 
+        (boolean) Enable simple risk acceptance. Default value: false.
+    default: false
+  enable_full_risk_acceptance:
+    description: > 
+        (boolean) Enable full risk acceptance. Default value: false.
+    default: false
+  product_manager:
+    description: > 
+        (integer) Product manager. Default null.
+    default: ''
+  technical_contact:
+    description: > 
+        (integer) Technical contact. Default null.
+    default: ''
+  team_manager:
+    description: > 
+        (integer) Team manager. Default null.
+    default: ''
+  prod_type:
+    description: > 
+        (integer) Product type.
+    required: true
+  regulations:
+    description: > 
+        (integer) uniqueItems: true.
+    default: ''
+outputs:
+  response:
+    description: 'DefectDojo manage product result'
+    value: ${{ steps.products.outputs.response }}
+runs:
+  using: 'composite'
+  steps:
+    - id: products
+      run: |
+        ${{ github.action_path }}/entrypoint.sh
+      shell: bash
+      env:
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_DEFECTDOJO_URL: ${{ inputs.defectdojo_url }}
+        INPUT_DEFECTDOJO_ENDPOINT: ${{ inputs.defectdojo_endpoint }}
+        INPUT_TAGS: ${{ inputs.tags }}
+        INPUT_NAME: ${{ inputs.name }}
+        INPUT_DESCRIPTION: ${{ inputs.description }}
+        INPUT_PROD_NUMERIC_GRADE: ${{ inputs.prod_numeric_grade }}
+        INPUT_BUSINESS_CRITICALITY: ${{ inputs.business_criticality }}
+        INPUT_PLATFORM: ${{ inputs.platform }}
+        INPUT_LIFECYCLE: ${{ inputs.lifecycle }}
+        INPUT_ORIGIN: ${{ inputs.origin }}
+        INPUT_USER_RECORDS: ${{ inputs.user_records }}
+        INPUT_REVENUE: ${{ inputs.revenue }}
+        INPUT_EXTERNAL_AUDIENCE: ${{ inputs.external_audience }}
+        INPUT_INTERNET_ACCESSIBLE: ${{ inputs.internet_accessible }}
+        INPUT_ENABLE_SIMPLE_RISK_ACCEPTANCE: ${{ inputs.enable_simple_risk_acceptance }}
+        INPUT_ENABLE_FULL_RISK_ACCEPTANCE: ${{ inputs.enable_full_risk_acceptance }}
+        INPUT_PRODUCT_MANAGER: ${{ inputs.product_manager }}
+        INPUT_TECHNICAL_CONTACT: ${{ inputs.technical_contact }}
+        INPUT_TEAM_MANAGER: ${{ inputs.team_manager }}
+        INPUT_PROD_TYPE: ${{ inputs.prod_type }}
+        INPUT_REGULATIONS: ${{ inputs.regulations }}
+
+branding:
+  icon: 'target'
+  color: 'gray-dark'
